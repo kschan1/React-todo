@@ -1,6 +1,22 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {deepOrange500} from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import ToDoList from './ToDoList';
+import './App.css'
+
+const muiTheme = getMuiTheme({
+  palette: {
+    accent1Color: deepOrange500,
+  },
+});
+
+injectTapEventPlugin();
 
 class App extends React.Component {
   constructor() {
@@ -10,6 +26,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   handleChange(e) {
@@ -18,6 +35,7 @@ class App extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(e.target.value);
     const newItem = {
       text: this.state.text,
       id: Date.now(),
@@ -43,16 +61,29 @@ class App extends React.Component {
     localStorage.setItem('todos',JSON.stringify(newState));
   }
 
+  handleRemove(id) {
+    console.log(id);
+    const newItems = this.state.items.filter((item) => {
+      if (item.id !== id) return item;
+    });
+    this.state.items = newItems;
+    const newState = this.state;
+    this.setState(newState);
+    localStorage.setItem('todos',JSON.stringify(newState));
+  }
+
   render() {
     return (
-      <div>
-        <h1>Todo</h1>
-        <form onSubmit={ this.handleSubmit }>
-          <input type="text" onChange={ this.handleChange } value={ this.state.text } />
-          <button>add</button>
-        </form>
-        <ToDoList items={ this.state.items } toggle={ this.handleToggle }/>
-      </div>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div className="container">
+          <h1>Reactodo</h1>
+          <form onSubmit={ this.handleSubmit }>
+            <TextField fullWidth={true} floatingLabelText='enter todo' onChange={ this.handleChange } value={ this.state.text } />
+            <RaisedButton fullWidth={true} type="submit" label="Add Todo" />
+          </form>
+          <ToDoList items={ this.state.items } toggle={ this.handleToggle } remove={ this.handleRemove } />
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
