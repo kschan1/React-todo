@@ -3,7 +3,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {deepOrange500} from 'material-ui/styles/colors';
+import {blue500} from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -14,7 +14,7 @@ import './App.css'
 
 const muiTheme = getMuiTheme({
   palette: {
-
+    primary1Color: blue500
   },
 });
 
