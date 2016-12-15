@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client','./src/index.js'],
+  entry: ['./src/index.js'],
   output: {
     path: __dirname,
     filename: 'bundle.js',
