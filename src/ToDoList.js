@@ -3,34 +3,27 @@ import React from 'react';
 import ToDo from './ToDo';
 import {List} from 'material-ui/List';
 
-// Class
-// class ToDoList extends React.Component {
-//   render() {
-//     return (
-//       <ul>
-//         {this.props.items.map(item => (
-//           <ToDo key={item.id} item={item} />
-//         ))}
-//       </ul>
-//     )
-//   }
-// }
+const ToDoList = ({items, filter, toggle, remove}) => {
 
-// Stateless
-// const ToDoList = ({items, toggle}) => {
-//   return (
-//     <ul>
-//       {items.map(item => (
-//         <ToDo key={item.id} item={item} toggle={toggle} />
-//       ))}
-//     </ul>
-//   )
-// }
+  switch(filter) {
+    case 'all':
+      var filteredItems = items;
+      break;
+    case 'completed':
+      var filteredItems = items.filter((item) => {
+        if (item.completed === true) return item;
+      });
+      break;
+    case 'active':
+      var filteredItems = items.filter((item) => {
+        if (item.completed === false) return item;
+      });
+      break;
+  }
 
-const ToDoList = ({items, toggle, remove}) => {
   return (
     <List>
-      {items.map(item => (
+      {filteredItems.map(item => (
         <ToDo key={item.id} item={item} toggle={toggle} remove={remove}/>
       ))}
     </List>
