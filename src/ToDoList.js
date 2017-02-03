@@ -19,6 +19,8 @@ const ToDoList = ({items, filter, toggle, remove}) => {
         if (item.completed === false) return item;
       });
       break;
+    default:
+      var filteredItems = items;
   }
 
   return (

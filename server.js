@@ -12,9 +12,9 @@ app.get('*', function(req, res) {
   res.sendFile(__dirname + '/index.html'); // has to be absolute path
 });
 
-app.listen(3000, function(err) {
+app.listen(3001, function(err) {
   if (err) {
     return console.error(err);
   }
-  console.log('listening at http://localhost:3000');
+  console.log('listening at http://localhost:3001');
 });

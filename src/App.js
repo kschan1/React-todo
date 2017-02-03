@@ -64,28 +64,27 @@ class App extends React.Component {
   }
 
   handleToggle(id) {
-    for (var i = 0; i < this.state.items.length; i++) {
-      if (this.state.items[i].id === id) {
-        this.state.items[i].completed = !this.state.items[i].completed;
+    const newItems = this.state.items.map((item) => {
+      if (item.id === id) {
+        item.completed = !item.completed;
       }
-    }
-    const newState = this.state;
-    this.setState(newState);
-    localStorage.setItem('todos',JSON.stringify(newState.items));
+      return item;
+    });
+    // console.log(newItems);
+    this.setState((prevState) => prevState.items = newItems);
+    localStorage.setItem('todos', JSON.stringify(newItems));
   }
 
   handleRemove(id) {
     const newItems = this.state.items.filter((item) => {
       if (item.id !== id) return item;
     });
-    this.state.items = newItems;
-    const newState = this.state;
-    this.setState(newState);
-    localStorage.setItem('todos',JSON.stringify(newState.items));
+    this.setState((prevState) => prevState.items = newItems);
+    localStorage.setItem('todos',JSON.stringify(newItems));
   }
 
   handleFilter(filter) {
-    console.log(filter)
+    // console.log(filter)
     this.setState((prevState) => prevState.filter = filter);
   }
 
