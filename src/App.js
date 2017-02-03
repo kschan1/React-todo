@@ -15,7 +15,7 @@ import './App.css'
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: blue500
-  },
+  }
 });
 
 const paperStyle = {
