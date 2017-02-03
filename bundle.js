@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "dccebb1001fdf62b3f1d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bd78636f870192524699"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -22574,14 +22574,17 @@
 	  }, {
 	    key: 'handleToggle',
 	    value: function handleToggle(id) {
-	      for (var i = 0; i < this.state.items.length; i++) {
-	        if (this.state.items[i].id === id) {
-	          this.state.items[i].completed = !this.state.items[i].completed;
+	      var newItems = this.state.items.map(function (item) {
+	        if (item.id === id) {
+	          item.completed = !item.completed;
 	        }
-	      }
-	      var newState = this.state;
-	      this.setState(newState);
-	      localStorage.setItem('todos', JSON.stringify(newState.items));
+	        return item;
+	      });
+	      // console.log(newItems);
+	      this.setState(function (prevState) {
+	        return prevState.items = newItems;
+	      });
+	      localStorage.setItem('todos', JSON.stringify(newItems));
 	    }
 	  }, {
 	    key: 'handleRemove',
@@ -22589,15 +22592,15 @@
 	      var newItems = this.state.items.filter(function (item) {
 	        if (item.id !== id) return item;
 	      });
-	      this.state.items = newItems;
-	      var newState = this.state;
-	      this.setState(newState);
-	      localStorage.setItem('todos', JSON.stringify(newState.items));
+	      this.setState(function (prevState) {
+	        return prevState.items = newItems;
+	      });
+	      localStorage.setItem('todos', JSON.stringify(newItems));
 	    }
 	  }, {
 	    key: 'handleFilter',
 	    value: function handleFilter(filter) {
-	      console.log(filter);
+	      // console.log(filter)
 	      this.setState(function (prevState) {
 	        return prevState.filter = filter;
 	      });
@@ -37044,6 +37047,8 @@
 	        if (item.completed === false) return item;
 	      });
 	      break;
+	    default:
+	      var filteredItems = items;
 	  }
 
 	  return _react2.default.createElement(
